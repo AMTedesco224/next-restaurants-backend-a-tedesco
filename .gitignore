@@ -10,7 +10,7 @@ Icon
 .Trashes
 ._*
 
-package-lock.json
+# package-lock.json
 
 node_modules
 
@@ -115,4 +115,4 @@ license.txt
 exports
 *.cache
 build
-.strapi-updater.json
+# .strapi-updater.json
