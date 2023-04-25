@@ -1,19 +1,22 @@
-// path: ./config/database.js
+// path: ./config/env/production/database.js
 
-module.exports = ({ env }) => ({
-  connection: {
-    client: 'postgres', 
-  connection: {
-        host: env('DATABASE_HOST', '127.0.0.1'),
-        port: env.int('DATABASE_PORT', 5432),
-        database: env('DATABASE_NAME', 'strapi'),
-        user: env('DATABASE_USERNAME', 'strapi'),
-        password: env('DATABASE_PASSWORD', 'strapi'),
-        schema: env('DATABASE_SCHEMA', 'public'),
-        ssl: {
-          ca: env('DATABASE_CA'),
-       },
+const { parse } = require("pg-connection-string");
+
+module.exports = ({ env }) => {
+  const { host, port, database, user, password } = parse(env("DATABASE_URL"));
+  
+  return {
+    connection: {
+      client: 'postgres',
+      connection: {
+        host,
+        port,
+        database,
+        user,
+        password,
+        ssl: { rejectUnauthorized: false },
       },
       debug: false,
-  },
-});
+    },
+  }
+};
